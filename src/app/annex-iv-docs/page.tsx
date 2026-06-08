@@ -22,7 +22,7 @@ export default function AnnexIVDocs() {
   })
   const [generated, setGenerated] = useState(false)
 
-  const handleChange = (field, value) => {
+  const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
 
