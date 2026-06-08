@@ -26,7 +26,7 @@ const questions = [
 export default function RiskClassification() {
   const router = useRouter()
   const [systemName, setSystemName] = useState('')
-  const [answers, setAnswers] = useState({})
+  const [answers, setAnswers] = useState<Record<string, boolean>>({})
   const [result, setResult] = useState(null)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState(null)

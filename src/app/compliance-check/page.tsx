@@ -22,7 +22,7 @@ const questions = [
 export default function ComplianceCheck() {
   const router = useRouter()
   const [systemName, setSystemName] = useState('')
-  const [answers, setAnswers] = useState({})
+  const [answers, setAnswers] = useState<Record<string, boolean>>({})
   const [result, setResult] = useState(null)
   const [saving, setSaving] = useState(false)
 
