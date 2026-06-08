@@ -51,6 +51,17 @@ export default function ComplianceCheck() {
     const level = getComplianceLevel(score)
     setResult({ score, level })
     setSaving(true)
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      await supabase.from('compliance_checks').insert({
+        user_id: user.id,
+        system_name: systemName,
+        score: score,
+        answers: answers
+      })
+    } catch (e) {
+      console.error('Save error:', e)
+    }
     setTimeout(() => setSaving(false), 1000)
   }
 

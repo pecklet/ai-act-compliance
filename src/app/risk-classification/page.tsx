@@ -57,16 +57,16 @@ export default function RiskClassification() {
       console.log('User:', user)
       
       if (user) {
-        const { data, error: rpcError } = await supabase.rpc('insert_risk_assessment', {
+        const { data, error: saveError } = await supabase.from('risk_assessments').insert( {
           p_user_id: user.id,
           p_system_name: systemName,
           p_risk_level: riskLevel,
           p_answers: answers
         })
         
-        if (rpcError) {
-          console.error('RPC error:', rpcError)
-          setError('Error saving: ' + rpcError.message)
+        if (saveError) {
+          console.error('RPC error:', saveError)
+          setError('Error saving: ' + saveError.message)
         } else {
           console.log('Saved successfully:', data)
           alert('Assessment saved successfully!')
