@@ -38,7 +38,7 @@ export default function ComplianceCheck() {
     return Math.round((yesWeight / totalWeight) * 100)
   }
 
-  const getComplianceLevel = (score) => {
+  const getComplianceLevel = (score: number) => {
     if (score >= 80) return 'Compliant'
     if (score >= 60) return 'Partially Compliant'
     if (score >= 40) return 'Non-Compliant'
