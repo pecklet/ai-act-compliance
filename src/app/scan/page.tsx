@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import { downloadReport } from '@/lib/reportGenerator'
 
 export default function ScanPage() {
   const [url, setUrl] = useState('')
@@ -159,7 +160,22 @@ export default function ScanPage() {
               </div>
             )}
 
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <div className="flex gap-3 mb-6">
+            <button
+              onClick={() => downloadReport(result)}
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700"
+            >
+              Download PDF Report
+            </button>
+            <button
+              onClick={() => setResult(null)}
+              className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-50"
+            >
+              New Scan
+            </button>
+          </div>
+
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
               <p className="text-sm text-yellow-800"><strong>Note:</strong> This is an automated scan based on publicly visible webpage content. It does not constitute legal advice. For a complete EU AI Act compliance assessment, use our Risk Classification and Compliance Check tools.</p>
             </div>
           </div>
