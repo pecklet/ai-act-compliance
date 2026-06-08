@@ -31,7 +31,7 @@ export default function RiskClassification() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState(null)
 
-  const handleAnswer = (questionId: string, value: string) => {
+  const handleAnswer = (questionId: string, value: boolean) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }))
   }
 

@@ -26,7 +26,7 @@ export default function ComplianceCheck() {
   const [result, setResult] = useState(null)
   const [saving, setSaving] = useState(false)
 
-  const handleAnswer = (questionId: string, value: string) => {
+  const handleAnswer = (questionId: string, value: boolean) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }))
   }
 
