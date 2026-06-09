@@ -90,7 +90,19 @@ export default function Dashboard() {
             <p className="text-gray-600 text-sm">Auto-generate Annex IV technical documentation and other regulatory compliance documents.</p>
             <p className="text-xs text-blue-600 mt-3 font-medium">Art. 11, Annex IV</p>
           </Link>
-        </div>
+        <Link href="/risk-register" className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+          <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 font-bold text-xl mb-4">R</div>
+          <h3 className="text-lg font-bold text-gray-900 mb-2">Risk Register</h3>
+          <p className="text-gray-600 text-sm">Build and manage your risk register with a 4-step wizard. Identify risks, add mitigations, and track status.</p>
+          <p className="text-xs text-blue-600 mt-3 font-medium">Art. 9</p>
+        </Link>
+        <Link href="/scan" className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+          <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 font-bold text-xl mb-4">S</div>
+          <h3 className="text-lg font-bold text-gray-900 mb-2">URL Scanner</h3>
+          <p className="text-gray-600 text-sm">Scan any website URL for EU AI Act compliance issues and generate a detailed PDF report.</p>
+          <p className="text-xs text-blue-600 mt-3 font-medium">Art. 72, 73</p>
+        </Link>
+      </div>
 
         <h2 className="text-xl font-bold text-gray-900 mb-6">EU AI Act Timeline</h2>
         <div className="bg-white rounded-xl shadow-lg p-6">
