@@ -1,186 +1,75 @@
 'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
 
 const plans = [
-  {
-    name: 'Free',
-    price: '0',
-    period: '/month',
-    description: 'Experience core compliance features for free',
-    features: [
-      'Risk Classification (Article 6)',
-      'Compliance Self-Assessment (12 questions)',
-      '3 Document Templates',
-      'AI Multilingual Chatbot',
-    ],
-    limitations: [
-      'No data saving',
-      'No URL scanning',
-      'No monthly reports',
-    ],
-    cta: 'Get Started Free',
-    ctaLink: '/register',
-    highlighted: false,
-  },
-  {
-    name: 'Starter',
-    price: '39',
-    period: '/month',
-    description: 'Basic continuous compliance for low-risk AI',
-    features: [
-      'All Free features',
-      'Cloud data storage',
-      '8 Document Templates',
-      '1 URL scan / month',
-      'White-label PDF monthly report',
-      'Change tracking',
-      'Email alerts',
-      '3 team members',
-    ],
-    limitations: [],
-    cta: 'Start Free Trial',
-    ctaLink: '/register',
-    highlighted: false,
-  },
-  {
-    name: 'Professional',
-    price: '89',
-    period: '/month',
-    description: 'Full EU AI Act compliance coverage',
-    features: [
-      'All Starter features',
-      '15 Document Templates (all obligations)',
-      '5 URL scans / month',
-      'White-label PDF monthly report',
-      'Quarterly deep compliance review',
-      'FRIA Impact Assessment (Art. 27)',
-      'Serious incident report (Art. 73)',
-      'Compliance score dashboard',
-      'GDPR cross-check',
-      'Human oversight assessment (Art. 14)',
-      '10 team members',
-    ],
-    limitations: [],
-    cta: 'Start Free Trial',
-    ctaLink: '/register',
-    highlighted: true,
-  },
-  {
-    name: 'Enterprise',
-    price: '159',
-    period: '/month',
-    description: 'Complete compliance operations platform',
-    features: [
-      'All Professional features',
-      'Unlimited URL scans + weekly',
-      'GDPR deep scan (auto-detect)',
-      'Custom checklists by industry',
-      'Document version management',
-      'Regulation change auto-push',
-      'White-label PDF (client logo)',
-      'Unlimited team members',
-    ],
-    limitations: [],
-    cta: 'Start Free Trial',
-    ctaLink: '/register',
-    highlighted: false,
-  },
-]
+  { name:'Free',price:'0',period:'/month',description:'Basic AI Act awareness & self-assessment',color:'bg-gray-50 border-gray-200',buttonColor:'bg-gray-600 hover:bg-gray-700',buttonText:'Get Started Free',
+    features:[{category:'AI Literacy (Art.4)',items:['EU AI Act knowledge base & regulation search','AI literacy resource library']},{category:'Risk Classification',items:['Basic risk self-assessment questionnaire','AI system type identification guide']},{category:'Support',items:['AI multilingual chatbot (homepage)']}],limitations:['Web/Website only','1 AI system','Community support']},
+  { name:'Starter',price:'39',period:'/month',description:'Lightweight compliance for websites & simple AI',color:'bg-white border-gray-200',buttonColor:'bg-blue-600 hover:bg-blue-700',buttonText:'Start Compliance',
+    features:[{category:'Prohibited Practices (Art.5)',items:['Full 8-item prohibited practice screening','AI-guided compliance questionnaire']},{category:'Limited Risk (Art.50)',items:['5-item transparency obligation check','AI disclosure compliance assessment','Synthetic content labeling check','Deepfake disclosure compliance']},{category:'URL Compliance Scanner',items:['3 scans/month','12-point automated compliance check','PDF compliance report (branded)']},{category:'Documentation',items:['3 basic document templates','Compliance score report']}],limitations:['Web/Website only','1 AI system','Email support']},
+  { name:'Professional',price:'89',period:'/month',description:'Professional compliance for SaaS & Apps',color:'bg-blue-50 border-blue-300 scale-105 shadow-xl',buttonColor:'bg-blue-600 hover:bg-blue-700',buttonText:'Go Professional',popular:true,
+    features:[{category:'Risk Management (Art.9)',items:['AI-guided risk register builder','Iterative risk assessment workflow','Vulnerable groups impact assessment','Residual risk acceptance record']},{category:'Data Governance (Art.10)',items:['Dataset documentation templates','Bias detection checklist','Data quality assessment tool']},{category:'Technical Documentation (Annex IV)',items:['SME simplified 9-section templates','AI-guided document generation','Version tracking & updates']},{category:'Logging (Art.12)',items:['Basic logging compliance check','Log retention policy generator']},{category:'Transparency (Art.13)',items:['Complete instructions for use generator','Deployer information package builder']},{category:'Human Oversight (Art.14)',items:['AI-guided oversight design assessment','Human-AI interaction compliance check','Emergency stop mechanism guide']},{category:'Accuracy & Robustness (Art.15)',items:['Accuracy benchmark checklist','Cybersecurity assessment guide','Adversarial testing framework']},{category:'FRIA (Art.27)',items:['Basic Fundamental Rights Impact Assessment','Affected population analysis tool']},{category:'URL Scanner',items:['15 scans/month','PDF reports (white-label)']}],limitations:['Web + SaaS + App','3 AI systems','Priority email support']},
+  { name:'Business',price:'159',period:'/month',description:'Full compliance for high-risk AI systems',color:'bg-white border-gray-200',buttonColor:'bg-blue-600 hover:bg-blue-700',buttonText:'Go Business',
+    features:[{category:'QMS (Art.17)',items:['Quality management system framework','13-area compliance checklist','Proportionality assessment tool']},{category:'Deployer Obligations (Art.26)',items:['Full deployer compliance toolkit','Worker notification templates','6-month log retention policy','Individual notification templates']},{category:'FRIA Full (Art.27+29)',items:['Complete FRIA assessment tool','Authority notification builder','Internal governance framework']},{category:'Conformity Assessment (Art.43)',items:['Annex VI internal control checklist','Step-by-step assessment guide','Document readiness evaluation']},{category:'EU Declaration (Art.47)',items:['EU Declaration of Conformity generator','Multi-language support']},{category:'EU Database (Art.71)',items:['Annex VIII registration pre-fill','Registration status tracker']},{category:'Post-Market Monitoring (Art.72)',items:['Monitoring plan template & framework','Performance data collection workflow','Cross-AI interaction analysis guide']},{category:'Incident Reporting (Art.73)',items:['Serious incident report forms','Deadline reminders (2/10/15 days)','Investigation workflow tracker']},{category:'Advanced Logging (Art.12)',items:['Advanced logging compliance audit','Biometric system log requirements']},{category:'Monthly Automation',items:['Monthly automated scanning','Monthly compliance report']}],limitations:['All types: Web + SaaS + App + Agent + MVP','5 AI systems','Priority support + chat']},
+  { name:'Enterprise',price:'249',period:'/month',description:'Enterprise-grade full coverage for all AI types',color:'bg-gray-900 text-white border-gray-700',buttonColor:'bg-white text-gray-900 hover:bg-gray-100',buttonText:'Contact Sales',
+    features:[{category:'GPAI Model Compliance (Art.51-56)',items:['GPAI model documentation (Annex XI/XII)','Training data summary generator','Copyright policy management','Systemic risk assessment tool','Adversarial testing documentation','Code of conduct compliance check']},{category:'Full EU AI Act Coverage',items:['All 18 compliance areas covered','100% regulation coverage guarantee','All AI system types supported']},{category:'Advanced Features',items:['Unlimited AI systems','Custom industry checklists','Regulation change auto-push alerts','API + Webhook integration','Team collaboration (multi-member)','GDPR deep scan','Document version management']},{category:'Support',items:['Dedicated compliance advisor','24/7 priority support','Quarterly compliance review']}],limitations:['All AI types: Web + SaaS + App + Agent + MVP + API + Embedded','Unlimited systems','Dedicated advisor']},
+];
 
-export default function PricingPage() {
-  return (
+const coverageData = [
+  {article:'Art.4 AI Literacy',free:true,starter:true,pro:true,business:true,enterprise:true},
+  {article:'Art.5 Prohibited Practices (8 items)',free:false,starter:true,pro:true,business:true,enterprise:true},
+  {article:'Art.9 Risk Management System',free:false,starter:false,pro:true,business:true,enterprise:true},
+  {article:'Art.10 Data Governance',free:false,starter:false,pro:true,business:true,enterprise:true},
+  {article:'Art.12 Logging & Record-Keeping',free:false,starter:false,pro:'Basic',business:'Advanced',enterprise:'Advanced'},
+  {article:'Art.13 Transparency & Instructions',free:false,starter:'Partial',pro:'Full',business:'Full',enterprise:'Full'},
+  {article:'Art.14 Human Oversight',free:false,starter:false,pro:true,business:true,enterprise:true},
+  {article:'Art.15 Accuracy/Robustness/Cybersecurity',free:false,starter:false,pro:true,business:true,enterprise:true},
+  {article:'Art.17 Quality Management System',free:false,starter:false,pro:false,business:true,enterprise:true},
+  {article:'Art.26 Deployer Obligations',free:false,starter:false,pro:false,business:true,enterprise:true},
+  {article:'Art.27+29 FRIA',free:false,starter:false,pro:'Basic',business:'Full',enterprise:'Full'},
+  {article:'Art.43 Conformity Assessment',free:false,starter:false,pro:false,business:true,enterprise:true},
+  {article:'Art.47 EU Declaration of Conformity',free:false,starter:false,pro:false,business:true,enterprise:true},
+  {article:'Art.71 EU Database Registration',free:false,starter:false,pro:false,business:true,enterprise:true},
+  {article:'Art.72 Post-Market Monitoring',free:false,starter:false,pro:false,business:true,enterprise:true},
+  {article:'Art.73 Incident Reporting',free:false,starter:false,pro:false,business:true,enterprise:true},
+  {article:'Art.50 Limited Risk Obligations',free:false,starter:true,pro:true,business:true,enterprise:true},
+  {article:'Art.51-56 GPAI Model Obligations',free:false,starter:false,pro:false,business:false,enterprise:true},
+  {article:'Annex IV Technical Documentation',free:false,starter:'3 templates',pro:'9 templates',business:'9 templates',enterprise:'9 templates'},
+];
+
+const aiTypesData = [
+  {type:'Website / Web App',free:true,starter:true,pro:true,business:true,enterprise:true},
+  {type:'SaaS Platform',free:false,starter:false,pro:true,business:true,enterprise:true},
+  {type:'Mobile App',free:false,starter:false,pro:true,business:true,enterprise:true},
+  {type:'AI Agent',free:false,starter:false,pro:false,business:true,enterprise:true},
+  {type:'MVP / Prototype',free:false,starter:false,pro:false,business:true,enterprise:true},
+  {type:'API Service',free:false,starter:false,pro:false,business:false,enterprise:true},
+  {type:'Embedded System',free:false,starter:false,pro:false,business:false,enterprise:true},
+];
+
+function CheckIcon({color='text-green-600'}:{color?:string}){return(<svg className={`w-4 h-4 ${color} flex-shrink-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/></svg>)}
+function CrossIcon(){return(<svg className="w-4 h-4 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/></svg>)}
+function CoverageCell({value}:{value:boolean|string}){if(value===true)return<CheckIcon/>;if(value===false)return<CrossIcon/>;return<span className="text-xs font-medium">{value}</span>}
+
+export default function PricingPage(){
+  const[activeTab,setActiveTab]=useState<'plans'|'coverage'|'types'>('plans')
+  return(
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Pricing</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            EU AI Act compliance made simple. Choose the plan that fits your risk level.
-            All paid plans include a 14-day free trial.
-          </p>
-          <p className="text-sm text-gray-500 mt-4">
-            Prices in EUR. No credit card required for free trial.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`rounded-2xl p-8 ${
-                plan.highlighted
-                  ? 'bg-blue-600 text-white shadow-xl scale-105'
-                  : 'bg-white text-gray-900 shadow-lg'
-              }`}
-            >
-              <h2 className="text-xl font-bold mb-2">{plan.name}</h2>
-              <p className={`text-sm mb-4 ${plan.highlighted ? 'text-blue-100' : 'text-gray-500'}`}>
-                {plan.description}
-              </p>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">EUR{plan.price}</span>
-                <span className={plan.highlighted ? 'text-blue-200' : 'text-gray-500'}>
-                  {plan.period}
-                </span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2">
-                    <span className={plan.highlighted ? 'text-blue-200' : 'text-green-500'}>check</span>
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-                {plan.limitations.map((limitation) => (
-                  <li key={limitation} className="flex items-start gap-2 opacity-50">
-                    <span>x</span>
-                    <span className="text-sm">{limitation}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href={plan.ctaLink}
-                className={`block w-full text-center py-3 px-6 rounded-lg font-medium ${
-                  plan.highlighted
-                    ? 'bg-white text-blue-600 hover:bg-blue-50'
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
-                }`}
-              >
-                {plan.cta}
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-16 text-center">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">EU AI Act Coverage by Plan</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="text-left p-3 border">Article</th>
-                  <th className="text-left p-3 border">Requirement</th>
-                  <th className="text-center p-3 border">Free</th>
-                  <th className="text-center p-3 border">Starter</th>
-                  <th className="text-center p-3 border bg-blue-50">Pro</th>
-                  <th className="text-center p-3 border">Enterprise</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td className="p-3 border">Art. 6</td><td className="p-3 border">Risk Classification</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border bg-blue-50">Y</td><td className="text-center p-3 border">Y</td></tr>
-                <tr><td className="p-3 border">Art. 9</td><td className="p-3 border">Risk Management</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border bg-blue-50">Y</td><td className="text-center p-3 border">Y</td></tr>
-                <tr><td className="p-3 border">Art. 10</td><td className="p-3 border">Data Governance</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border bg-blue-50">Y</td><td className="text-center p-3 border">Y</td></tr>
-                <tr><td className="p-3 border">Art. 11+Annex IV</td><td className="p-3 border">Technical Documentation</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border bg-blue-50">Y</td><td className="text-center p-3 border">Y</td></tr>
-                <tr><td className="p-3 border">Art. 13</td><td className="p-3 border">Transparency</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border bg-blue-50">Y</td><td className="text-center p-3 border">Y</td></tr>
-                <tr><td className="p-3 border">Art. 14</td><td className="p-3 border">Human Oversight</td><td className="text-center p-3 border">-</td><td className="text-center p-3 border">-</td><td className="text-center p-3 border bg-blue-50">Y</td><td className="text-center p-3 border">Y</td></tr>
-                <tr><td className="p-3 border">Art. 27+29</td><td className="p-3 border">FRIA Assessment</td><td className="text-center p-3 border">-</td><td className="text-center p-3 border">-</td><td className="text-center p-3 border bg-blue-50">Y</td><td className="text-center p-3 border">Y</td></tr>
-                <tr><td className="p-3 border">Art. 52</td><td className="p-3 border">Limited Risk Transparency</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border bg-blue-50">Y</td><td className="text-center p-3 border">Y</td></tr>
-                <tr><td className="p-3 border">Art. 72</td><td className="p-3 border">Post-Market Monitoring</td><td className="text-center p-3 border">-</td><td className="text-center p-3 border">Y</td><td className="text-center p-3 border bg-blue-50">Y</td><td className="text-center p-3 border">Y</td></tr>
-                <tr><td className="p-3 border">Art. 73</td><td className="p-3 border">Serious Incident Report</td><td className="text-center p-3 border">-</td><td className="text-center p-3 border">-</td><td className="text-center p-3 border bg-blue-50">Y</td><td className="text-center p-3 border">Y</td></tr>
-                <tr><td className="p-3 border">GDPR</td><td className="p-3 border">Cross-compliance Check</td><td className="text-center p-3 border">-</td><td className="text-center p-3 border">-</td><td className="text-center p-3 border bg-blue-50">Y</td><td className="text-center p-3 border">Y</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <nav className="bg-white shadow-sm border-b"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div className="flex justify-between h-16 items-center"><Link href="/" className="text-xl font-bold text-blue-600">AC</Link><div className="flex items-center gap-4"><Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link><Link href="/dashboard" className="text-gray-600 hover:text-gray-900">Dashboard</Link><Link href="/login" className="text-gray-600 hover:text-gray-900">Sign In</Link><Link href="/register" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Sign Up</Link></div></div></div></nav>
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"><h1 className="text-4xl font-bold mb-4">EU AI Act Compliance Plans</h1><p className="text-xl text-blue-100 mb-2">Regulation (EU) 2024/1689 &mdash; Complete Coverage</p><p className="text-blue-200 max-w-2xl mx-auto">AI-guided compliance for all AI system types. From basic awareness to enterprise-grade full coverage. Covering all 18 compliance areas across Web, SaaS, App, Agent, MVP, API &amp; Embedded systems.</p></div></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8"><div className="flex gap-2 border-b border-gray-200">
+        <button onClick={()=>setActiveTab('plans')} className={`px-6 py-3 font-medium text-sm rounded-t-lg transition-colors ${activeTab==='plans'?'bg-white border border-b-white text-blue-600 -mb-px':'text-gray-500 hover:text-gray-700'}`}>Pricing Plans</button>
+        <button onClick={()=>setActiveTab('coverage')} className={`px-6 py-3 font-medium text-sm rounded-t-lg transition-colors ${activeTab==='coverage'?'bg-white border border-b-white text-blue-600 -mb-px':'text-gray-500 hover:text-gray-700'}`}>Article Coverage (18/18)</button>
+        <button onClick={()=>setActiveTab('types')} className={`px-6 py-3 font-medium text-sm rounded-t-lg transition-colors ${activeTab==='types'?'bg-white border border-b-white text-blue-600 -mb-px':'text-gray-500 hover:text-gray-700'}`}>AI System Types</button>
+      </div></div>
+      {activeTab==='plans'&&(<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">{plans.map((plan)=>(<div key={plan.name} className={`rounded-xl border-2 p-6 flex flex-col ${plan.color} relative`}>{plan.popular&&(<div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</div>)}<div className="mb-4"><h3 className="text-lg font-bold">{plan.name}</h3><div className="mt-2"><span className="text-3xl font-bold">&euro;{plan.price}</span><span className="text-gray-500">{plan.period}</span></div><p className="text-sm text-gray-500 mt-1">{plan.description}</p></div><button className={`w-full py-2 rounded-lg font-medium text-white transition-colors ${plan.buttonColor} mb-4`}>{plan.buttonText}</button><div className="flex-1 space-y-4">{plan.features.map((group)=>(<div key={group.category}><h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">{group.category}</h4><ul className="space-y-1.5">{group.items.map((item)=>(<li key={item} className="flex items-start gap-2 text-sm"><CheckIcon color={plan.name==='Enterprise'?'text-blue-400':'text-green-600'}/><span>{item}</span></li>))}</ul></div>))}</div><div className="mt-4 pt-4 border-t border-gray-200"><ul className="space-y-1">{plan.limitations.map((item)=>(<li key={item} className="text-xs text-gray-400 flex items-center gap-1.5"><span className="w-1 h-1 bg-gray-300 rounded-full flex-shrink-0"></span>{item}</li>))}</ul></div></div>))}</div>
+      <div className="mt-12 bg-white rounded-xl border p-6"><h3 className="text-lg font-bold mb-4">EU AI Act Coverage Summary</h3><div className="grid grid-cols-5 gap-4 text-center">{[{plan:'Free',coverage:'1/18',pct:'6%'},{plan:'Starter',coverage:'4/18',pct:'22%'},{plan:'Professional',coverage:'12/18',pct:'67%'},{plan:'Business',coverage:'17/18',pct:'94%'},{plan:'Enterprise',coverage:'18/18',pct:'100%'}].map((item)=>(<div key={item.plan} className="p-3 bg-gray-50 rounded-lg"><div className="text-sm font-medium text-gray-600">{item.plan}</div><div className="text-2xl font-bold text-blue-600">{item.coverage}</div><div className="text-xs text-gray-400">{item.pct} coverage</div></div>))}</div></div></div>)}
+      {activeTab==='coverage'&&(<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"><div className="bg-white rounded-xl border overflow-x-auto"><table className="w-full text-sm"><thead><tr className="bg-gray-50"><th className="text-left p-4 font-medium text-gray-600 min-w-[250px]">Article / Requirement</th><th className="p-4 text-center font-medium text-gray-600">Free</th><th className="p-4 text-center font-medium text-gray-600">Starter</th><th className="p-4 text-center font-medium text-blue-600">Professional</th><th className="p-4 text-center font-medium text-gray-600">Business</th><th className="p-4 text-center font-medium text-gray-600">Enterprise</th></tr></thead><tbody>{coverageData.map((row,i)=>(<tr key={row.article} className={i%2===0?'bg-white':'bg-gray-50'}><td className="p-4 font-medium">{row.article}</td><td className="p-4 text-center"><CoverageCell value={row.free}/></td><td className="p-4 text-center"><CoverageCell value={row.starter}/></td><td className="p-4 text-center bg-blue-50/50"><CoverageCell value={row.pro}/></td><td className="p-4 text-center"><CoverageCell value={row.business}/></td><td className="p-4 text-center"><CoverageCell value={row.enterprise}/></td></tr>))}</tbody></table></div><p className="text-xs text-gray-400 mt-4 text-center">Based on Regulation (EU) 2024/1689.</p></div>)}
+      {activeTab==='types'&&(<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"><div className="bg-white rounded-xl border overflow-x-auto"><table className="w-full text-sm"><thead><tr className="bg-gray-50"><th className="text-left p-4 font-medium text-gray-600 min-w-[200px]">AI System Type</th><th className="p-4 text-center font-medium text-gray-600">Free</th><th className="p-4 text-center font-medium text-gray-600">Starter</th><th className="p-4 text-center font-medium text-blue-600">Professional</th><th className="p-4 text-center font-medium text-gray-600">Business</th><th className="p-4 text-center font-medium text-gray-600">Enterprise</th></tr></thead><tbody>{aiTypesData.map((row,i)=>(<tr key={row.type} className={i%2===0?'bg-white':'bg-gray-50'}><td className="p-4 font-medium">{row.type}</td><td className="p-4 text-center"><CoverageCell value={row.free}/></td><td className="p-4 text-center"><CoverageCell value={row.starter}/></td><td className="p-4 text-center bg-blue-50/50"><CoverageCell value={row.pro}/></td><td className="p-4 text-center"><CoverageCell value={row.business}/></td><td className="p-4 text-center"><CoverageCell value={row.enterprise}/></td></tr>))}</tbody></table></div>
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6"><div className="bg-white rounded-xl border p-6"><h3 className="font-bold mb-3">What does compliance cover for each type?</h3><ul className="space-y-2 text-sm text-gray-600"><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">Web:</span>URL scanning, AI disclosure, privacy policy, cookie consent</li><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">SaaS:</span>All web items + technical docs, risk management, data governance, QMS</li><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">App:</span>All SaaS items + app store compliance, user notification, accessibility</li><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">Agent:</span>All App items + autonomous decision logging, human oversight design, FRIA</li><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">MVP:</span>Risk classification + minimum viable compliance documentation for market entry</li><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">API:</span>All items + downstream provider documentation, API security assessment</li><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">Embedded:</span>All items + product safety integration, CE marking support, hardware-software interface docs</li></ul></div>
+      <div className="bg-white rounded-xl border p-6"><h3 className="font-bold mb-3">How does AI-guided compliance work?</h3><ul className="space-y-2 text-sm text-gray-600"><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">1.</span>Answer AI-guided questions about your AI system (like a chat)</li><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">2.</span>AI automatically generates professional compliance documents</li><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">3.</span>Get compliance scores, gap analysis &amp; improvement recommendations</li><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">4.</span>Download white-label PDF reports ready for regulators</li><li className="flex items-start gap-2"><span className="text-blue-600 font-bold">5.</span>Monthly automated scans keep you continuously compliant</li></ul></div></div></div>)}
+      <footer className="bg-gray-900 text-gray-400 py-8 mt-12"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm"><p>EU AI Act Compliance Platform &mdash; Regulation (EU) 2024/1689</p><p className="mt-1">All plans include AI-guided compliance. No code required.</p></div></footer>
     </div>
   )
 }
