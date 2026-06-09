@@ -90,9 +90,7 @@ Respond ONLY with valid JSON, no markdown formatting.`
     let analysis
     try {
       const replyContent = aiData.choices[0].message.content
-      const cleaned = replyContent.replace(/```json
-?/g, '').replace(/```
-?/g, '').trim()
+      const cleaned = replyContent.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
       analysis = JSON.parse(cleaned)
     } catch (parseError) {
       analysis = {

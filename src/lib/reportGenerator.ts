@@ -41,15 +41,15 @@ export function generateComplianceReport(data) {
 
   // Company Info
   addText('Company / Website', 12, 20, { bold: true })
-  addText(data.url || data.system_name || 'N/A', 10, 20)
-  addText('Report Date: ' + new Date().toLocaleDateString('en-GB'), 10, 20)
+  addText(data.url || data.system_name || 'N/A', 10, 20, {})
+  addText('Report Date: ' + new Date().toLocaleDateString('en-GB'), 10, 20, {})
   y += 5
   addLine()
 
   // Executive Summary
   addText('1. Executive Summary', 14, 20, { bold: true })
   y += 3
-  addText(data.summary || 'No summary available.', 10, 20)
+  addText(data.summary || 'No summary available.', 10, 20, {})
   y += 5
   addLine()
 
@@ -83,7 +83,7 @@ export function generateComplianceReport(data) {
       doc.setFillColor(statusColor[0], statusColor[1], statusColor[2])
       doc.roundedRect(20, y - 4, 4, 4, 1, 1, 'F')
       addText((check.name || 'Check ' + (i + 1)), 10, 28, { bold: true })
-      addText(check.details || 'No details available.', 9, 28)
+      addText(check.details || 'No details available.', 9, 28, {})
       addText('Status: ' + check.status, 8, 28, { color: statusColor })
       y += 3
     })
@@ -97,7 +97,7 @@ export function generateComplianceReport(data) {
     y += 3
     data.recommendations.forEach((rec, i) => {
       if (y > 260) { doc.addPage(); y = 20 }
-      addText((i + 1) + '. ' + rec, 10, 20)
+      addText((i + 1) + '. ' + rec, 10, 20, {})
       y += 2
     })
     addLine()
